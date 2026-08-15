@@ -1,0 +1,25 @@
+JUPITER PREDICTION API KEY - CONFIGURATION
+=========================================
+
+1. Ouvrir le portail Jupiter Developer:
+   https://developers.jup.ag/portal
+
+2. Se connecter et creer/copier une API key.
+
+3. Dans le dossier du bot:
+   notepad .env
+
+4. Remplacer:
+   JUPITER_API_KEY=PASTE_YOUR_JUPITER_API_KEY_HERE
+
+   par:
+   JUPITER_API_KEY=VOTRE_CLE_ICI
+
+5. Enregistrer puis tester:
+   .\SOURCE_TEST.ps1
+   .\SCAN_ONCE.ps1
+
+IMPORTANT:
+- Ne jamais partager .env.
+- Ne jamais publier la cle dans GitHub, un screenshot ou un rapport public.
+- L'API Prediction de Jupiter est en beta; une mise a jour du bot peut etre necessaire si l'API change.

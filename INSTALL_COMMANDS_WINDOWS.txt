@@ -1,0 +1,127 @@
+JupiterDegenEdgeBot V1.0 - INSTALLATION WINDOWS COMPLETE
+==========================================================
+
+IMPORTANT
+---------
+Le ZIP public demarre en PAPER. Il ne contient ni wallet, ni cle API, ni base SQLite utilisateur.
+Ne publiez jamais .env ni wallet\bot-keypair.json.
+
+OPTION A - PC NEUF / INSTALLATION TOUT-EN-UN (RECOMMANDEE)
+----------------------------------------------------------
+1. Extraire le ZIP.
+2. Ouvrir PowerShell DANS le dossier JupiterDegenEdgeBot_V1.0_GITHUB.
+3. Executer:
+
+Set-ExecutionPolicy -Scope Process Bypass -Force
+.\SETUP_FROM_ZERO_WINDOWS.ps1
+
+Le script:
+- utilise winget pour Python 3.13 si Python est absent;
+- utilise winget pour Node.js LTS si Node est absent;
+- installe Ollama depuis le script officiel ollama.com si absent;
+- cree .venv;
+- installe requirements.txt;
+- execute npm install;
+- teste la politique de signature Solana;
+- cree .env depuis .env.example;
+- initialise la base SQLite;
+- telecharge qwen2.5:1.5b-instruct-q4_K_M.
+
+Si winget n'existe pas, installe/actualise Microsoft App Installer puis utilise l'OPTION B.
+
+OPTION B - INSTALLATION MANUELLE DES PREREQUIS
+-----------------------------------------------
+Python 3.13 via winget:
+winget install --id Python.Python.3.13 --exact --source winget --accept-source-agreements --accept-package-agreements
+
+Node.js LTS via winget:
+winget install --id OpenJS.NodeJS.LTS --exact --source winget --accept-source-agreements --accept-package-agreements
+
+Si winget est indisponible, utiliser les telechargements officiels:
+Python Windows: https://www.python.org/downloads/windows/
+Node.js: https://nodejs.org/en/download
+Ollama Windows: https://ollama.com/download/windows
+
+Pendant l'installation Python, activer l'ajout de Python au PATH si l'installeur le propose.
+
+Fermer puis rouvrir PowerShell si python/node ne sont pas encore dans PATH.
+Verifier:
+python --version
+node --version
+npm --version
+
+OLLAMA - COMMANDE OFFICIELLE WINDOWS
+------------------------------------
+irm https://ollama.com/install.ps1 | iex
+
+Fermer/reouvrir PowerShell si la commande ollama n'est pas encore dans PATH.
+
+Installer le modele utilise par le bot:
+ollama pull qwen2.5:1.5b-instruct-q4_K_M
+
+Verifier:
+ollama --version
+ollama list
+ollama run qwen2.5:1.5b-instruct-q4_K_M "Reply only: OK"
+
+INSTALLER LE BOT SI LES PREREQUIS SONT DEJA PRESENTS
+----------------------------------------------------
+Set-ExecutionPolicy -Scope Process Bypass -Force
+.\INSTALL.ps1
+.\INSTALL_OLLAMA.ps1 -InstallIfMissing
+
+Ou logiciel + Ollama:
+.\INSTALL_ALL.ps1 -InstallOllamaIfMissing
+
+CONFIGURER LA CLE JUPITER
+-------------------------
+notepad .env
+
+Remplacer:
+JUPITER_API_KEY=PASTE_YOUR_JUPITER_API_KEY_HERE
+
+par votre cle Jupiter Developer.
+Enregistrer puis fermer Notepad.
+
+VERIFIER TOUTE L'INSTALLATION
+-----------------------------
+.\VERIFY_INSTALL.ps1
+.\DOCTOR.ps1
+.\OLLAMA_STATUS.ps1
+.\SOURCE_TEST.ps1
+.\SCAN_ONCE.ps1
+
+DEMARRER
+---------
+.\START_BOT.ps1
+.\DASHBOARD.ps1
+
+Dashboard:
+http://127.0.0.1:8501
+
+VERIFIER L'ACTIVITE / APPRENTISSAGE
+-----------------------------------
+.\CHECK_ACTIVITY.ps1
+.\TIMED_DIRECTION_STATUS.ps1
+.\LEARNING_STATUS.ps1
+
+LANCER LES TESTS DU REPOSITORY
+------------------------------
+.\RUN_TESTS.ps1
+
+ARRETER PROPREMENT
+------------------
+.\STOP_BOT.ps1
+.\STOP_DASHBOARD.ps1
+
+CONFIGURATION PUBLIQUE PAR DEFAUT
+---------------------------------
+TRADING_MODE=paper
+AUTO_EXECUTE=false
+LIVE_RELEASE_ENABLED=false
+MICRO_LIVE_ENABLED=false
+PERSISTENT_LIVE_ENABLED=false
+TIMED_DIRECTION_LIVE_ENABLED=false
+AUTO_CLAIM_ENABLED=false
+
+N'activez pas LIVE avant d'avoir lu docs\LIVE_TRADING.md et verifie les garde-fous.

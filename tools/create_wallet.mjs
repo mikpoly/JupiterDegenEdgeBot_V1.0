@@ -1,0 +1,10 @@
+import fs from 'node:fs';
+import path from 'node:path';
+import process from 'node:process';
+import { Keypair } from '@solana/web3.js';
+const target = process.argv[2] || process.env.SOLANA_KEYPAIR_PATH || 'wallet/bot-keypair.json';
+if (fs.existsSync(target)) throw new Error(`Refusing to overwrite existing wallet: ${target}`);
+fs.mkdirSync(path.dirname(target), { recursive: true });
+const kp = Keypair.generate();
+fs.writeFileSync(target, JSON.stringify(Array.from(kp.secretKey)), { encoding:'utf8', flag:'wx', mode:0o600 });
+process.stdout.write(kp.publicKey.toBase58());

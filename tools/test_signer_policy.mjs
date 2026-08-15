@@ -1,0 +1,12 @@
+import assert from 'node:assert/strict';
+import { validateSignerPlan } from './signer_policy.mjs';
+const ownerPaid = validateSignerPlan(['OWNER'], [false], 'OWNER');
+assert.equal(ownerPaid.ownerSignerIndex, 0);
+assert.equal(ownerPaid.sponsoredFeePayer, false);
+const sponsored = validateSignerPlan(['SPONSOR', 'OWNER'], [true, false], 'OWNER');
+assert.equal(sponsored.ownerSignerIndex, 1);
+assert.equal(sponsored.feePayer, 'SPONSOR');
+assert.equal(sponsored.sponsoredFeePayer, true);
+assert.throws(() => validateSignerPlan(['SPONSOR', 'OWNER'], [false, false], 'OWNER'), /additional signer.*without a pre-applied signature/i);
+assert.throws(() => validateSignerPlan(['SPONSOR'], [true], 'OWNER'), /not a required signer/i);
+process.stdout.write(JSON.stringify({ ok: true, tests: 4 }));
