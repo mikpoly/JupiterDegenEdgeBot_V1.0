@@ -1,5 +1,5 @@
 # JupiterDegenEdgeBot V1.0
-
+![Aperçu du projet](1.bmp)
 A Windows-first research and prediction-market bot for **Jupiter Prediction**, with quantitative crypto data, PAPER/SHADOW learning, 5m/15m TIMED direction analysis, adaptive profiles, bounded neural models, local Ollama review, and an SQLite-backed dashboard.
 
 > **Default safety:** the public release starts in **PAPER** mode. Real-money LIVE execution is disabled until manually opted into. No profitability is promised.
